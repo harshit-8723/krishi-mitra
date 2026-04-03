@@ -28,7 +28,7 @@ def preprocess_image(file_storage):
     """Read and preprocess an image file for the disease model."""
     try:
         file_storage.stream.seek(0) 
-        image = Image.open(io.BytesIO(file_storage.read())).convert('RGB')
+        image = Image.open(file_storage).convert('RGB')
         image = image.resize((128, 128))
         img_array = tf.keras.preprocessing.image.img_to_array(image)
         img_array = np.expand_dims(img_array, axis=0) / 255.0
@@ -38,17 +38,25 @@ def preprocess_image(file_storage):
         raise
 
 def get_disease_prediction(image_array):
-    """Use the disease model to make a prediction."""
     model = current_app.disease_model
     class_names = current_app.config['DISEASE_CLASS_NAMES']
 
-    predictions = model.predict(image_array)
-    predicted_index = np.argmax(predictions[0])
+    if image_array is None or image_array.shape != (1, 128, 128, 3):
+        return "Invalid Image", 0
+
+    predictions = model.predict(image_array, verbose=0)
+
+    probs = predictions[0]
+
+    confidence = float(np.max(probs))
+    predicted_index = int(np.argmax(probs))
+
+    if predicted_index >= len(class_names):
+        return "Prediction Error", 0
+
     predicted_class = class_names[predicted_index]
-    confidence = float(np.max(predictions[0]) * 100)
 
-    return predicted_class, confidence
-
+    return predicted_class, confidence * 100
 
 def get_crop_recommendation(data):
     """Use the loaded crop model to make a prediction, automatically fetch weather from city."""

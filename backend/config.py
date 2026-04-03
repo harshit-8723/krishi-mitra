@@ -14,6 +14,8 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret_key')
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
     WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+    HF_API_KEY = os.getenv("HF_API_KEY")
+
 
     # -------------------------------
     # Database (PostgreSQL)
@@ -33,7 +35,7 @@ class Config:
     # Paths for AI models
     # -------------------------------
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    DISEASE_MODEL_PATH = os.path.join(BASE_DIR, 'models', 'plant_disease_model.keras')
+    DISEASE_MODEL_PATH = os.path.join(BASE_DIR, 'models', 'new_plant_disease_model.h5')
     CROP_MODEL_PATH = os.path.join(BASE_DIR, 'models', 'crop_recommendation_model.joblib')
 
     # -------------------------------
@@ -57,5 +59,5 @@ class Config:
         'Tomato___Early_blight', 'Tomato___Late_blight', 'Tomato___Leaf_Mold',
         'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite', 'Tomato___Target_Spot',
         'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus', 'Tomato___healthy',
-        'Tomato_healthy'
+        'Tomato_healthy', 'Unknown'
     ]
