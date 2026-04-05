@@ -34,7 +34,7 @@ First, ensure Git LFS is installed on your system (sudo apt-get install git-lfs 
 Bash
 ```
 git lfs install
-git clone https://github.com/AnushkaNegi27/KrishiMitra.git
+git clone https://github.com/harshit-8723/krishi-mitra.git
 cd KrishiMitra/
 ```
 
