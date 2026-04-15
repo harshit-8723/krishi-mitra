@@ -43,7 +43,7 @@ def create_app(config_class=Config):
 
         try:
             genai.configure(api_key=app.config['GOOGLE_API_KEY'])
-            app.gemini_model = genai.GenerativeModel("gemini-2.0-flash")
+            app.gemini_model = genai.GenerativeModel("gemini-2.5-flash")
             print("✅ Gemini AI configured successfully.")
         except Exception as e:
             print(f"❌ Error configuring Gemini AI: {e}")
